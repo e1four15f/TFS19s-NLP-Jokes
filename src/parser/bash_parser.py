@@ -4,6 +4,7 @@ import json
 import os
 import logging
 from itertools import islice, chain
+import sqlite3 as sqlite
 
 
 def batch(iterable, size):
@@ -35,14 +36,17 @@ def make_url(appendix, bash_url='https://bash.im'):
 
 
 class BashParser(parser.Parser):
-    def __init__(self, pages):
+    def __init__(self, pages, db=None):
         """
         Pages is list of url's which to parse
         :param pages: list of url's
         """
         super().__init__()
+        self.db = db
+        if db is not None:
+            self.create_table()
         self.pages = pages
-        print(self.logger)
+
 
     def parse(self, batch_size):
         """
@@ -50,9 +54,34 @@ class BashParser(parser.Parser):
         :param batch_size: number of pages to be saved in one json file
         :return: None
         """
-        self.batch_parse(self.pages, batch_size)
+        self.parse_batch(self.pages, batch_size)
 
-    def save_page_jokes(self, filepath, jokes):
+    def create_table(self):
+        self.db_conn = sqlite.connect(self.db)
+        self.db_cursor = self.db_conn.cursor()
+        self.db_cursor.execute("""
+            CREATE TABLE IF NOT EXISTS jokes
+            (id int, jokes text, likes text, date text)
+        """)
+        self.db_conn.commit()
+
+    def insert_into_table(self, jokes):
+        self.db_cursor.executemany("INSERT INTO jokes VALUES (?,?,?,?)",
+                                   [(joke['id'], joke['text'], joke['likes'], joke['date']) for joke in jokes])
+        self.db_conn.commit()
+
+    def save_jokes(self, jokes, **params):
+        if self.db is None:
+            self.save_jokes_json(jokes, filepath=params['filepath'])
+        else:
+            self.save_jokes_sqlite(jokes=jokes)
+
+    def save_jokes_sqlite(self, jokes):
+        assert self.db is not None, "specify sqlite db"
+        self.logger.log(logging.INFO, 'save jokes to sqlite')
+        self.insert_into_table(jokes)
+
+    def save_jokes_json(self, jokes, filepath):
         """
         Save all jokes to json file
         :param filepath: path to save
@@ -63,7 +92,7 @@ class BashParser(parser.Parser):
             self.logger.log(logging.INFO, 'save to {0}'.format(filepath))
             json.dump(jokes, f, ensure_ascii=False, separators=(',', ': '), indent=2)
 
-    def batch_parse(self, pages_num, batch_size=100):
+    def parse_batch(self, pages_num, batch_size=100):
         """
         Parse pages and save every batch size
         :param pages_num: indices of page, list(int)
@@ -76,7 +105,8 @@ class BashParser(parser.Parser):
 
         for i, pages_batch in enumerate(batch(pages, batch_size)):
             jokes = self.parse_pages(pages_batch)
-            self.save_page_jokes(os.path.relpath(f'./jokes/bash_jokes_{i}.json'), jokes)
+            self.save_jokes(jokes)
+            # self.save_page_jokes(os.path.relpath(f'./jokes/bash_jokes_{i}.json'), jokes)
 
     def parse_page(self, page_url):
         """
