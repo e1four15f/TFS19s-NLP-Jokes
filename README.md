@@ -5,9 +5,11 @@
 Сбор шутейк из <a href="https://vk.com">vk.com</a>, <a href="https://bash.im">bash.im</a>, <a href="https://2ch.hk">2ch.hk</a> и других подобных ресурсах
 
 ### 2. Препроцессинг данных (Alexandr Yu.)
- - Обработка полученных данных
+ - Обработка полученных данны
+
  - Удаление мусора
- - Нормализация текста
+ - ~~Нормализация текста~~ - если кто-то будет делать word based seq2seq, то он сделает нормализацию и токенизацию как он считает нужным
+
 
 ### 3. Создание архитектуры проекта (Alexandr Yu., Vasily Karmazin, Vlad Semak)
 Изучение дополнительного материала
@@ -18,7 +20,7 @@
 ### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu., Vlad Semak)
 Построение простой модели и оценка её качества
 
-### 5. Эксперимент 2. Attention (Alexandr Yu., Vasily Karmazin)
+### 5. Эксперимент 2. Attention (Aexandr Yu., Vasily Karmazin)
 Добавление attention-а к моделе 
 
 ### 6. Эксперимент 3. Language Model, Transformer (Alexandr Yu., Vasily Karmazin, Vlad Semak)
