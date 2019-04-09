@@ -21,7 +21,7 @@
 Построение простой модели и оценка её качества
 
 ### 5. Эксперимент 2. Attention (Aexandr Yu., Vasily Karmazin)
-Добавление attention-а к моделе 
+Добавление attention-а к модели 
 
 ### 6. Эксперимент 3. Language Model, Transformer (Alexandr Yu., Vasily Karmazin, Vlad Semak)
 Изучение сложных архитектурных моделей, попытки использовать их в проекте 
