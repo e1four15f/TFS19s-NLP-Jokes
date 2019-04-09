@@ -1,0 +1,24 @@
+{
+  "encoder_lstm_size": "{encoder_lstm_size}",
+  "encoder_num_layers": "{encoder_num_layers}",
+  "encoder_final_context_dims": "{encoder_final_context_dims}",
+  "encoder_vocab_size": "{encoder_vocab_size}",
+  "encoder_state_size": "{encoder_state_size}",
+  "encoder_emb_size": "{encoder_emb_size}",
+  "encoder_vocab": "{encoder_vocab}",
+
+  "initial_state_zero": "{initial_state_zero}",
+
+  "decoder_lstm_size": "{decoder_lstm_size}",
+  "decoder_vocab_size": "{decoder_vocab_size}",
+  "decoder_max_len": "{decoder_max_len}",
+  "decoder_vocab": "{decoder_vocab}",
+  "reverse_decoder_vocab": "{reverse_decoder_vocab}",
+  "decoder_emb_size": "{decoder_emb_size}",
+
+  "use_encoder_embeddings": "{use_encoder_embeddings}",
+  "learning_rate": "{learning_rate}",
+  "epochs": "{epochs}",
+  "batch_size": "{batch_size}",
+  "clip": "{clip}"
+}
