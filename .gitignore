@@ -1,5 +1,6 @@
 **/__pycache__
-**/.ipynb_notebooks
+**/.ipynb_checkpoints
 /logs
 /jokes
+/data
 .idea
