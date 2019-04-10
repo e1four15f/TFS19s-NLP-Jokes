@@ -61,7 +61,7 @@ class Feed:
         vocab_id_min = 4
         vocab_id_max = params['encoder_vocab_size']
         for _ in range(n_docs):
-            doc = random.randint(vocab_id_min, vocab_id_max, n_chars)
+            doc = random.randint(vocab_id_min, vocab_id_max, n_chars).tolist()
             yield (doc, n_chars), (doc+[5, 6], doc+[5, 6], n_chars)
 
     def random_input_fn_(self, params, n=10, n_docs=10):

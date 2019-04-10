@@ -15,8 +15,9 @@
   "decoder_vocab": "{decoder_vocab}",
   "reverse_decoder_vocab": "{reverse_decoder_vocab}",
   "decoder_emb_size": "{decoder_emb_size}",
-
   "use_encoder_embeddings": "{use_encoder_embeddings}",
+  "beam_width": "{beam_width}",
+
   "learning_rate": "{learning_rate}",
   "epochs": "{epochs}",
   "batch_size": "{batch_size}",

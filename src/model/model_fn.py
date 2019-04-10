@@ -173,40 +173,57 @@ def model_fn(features, labels, mode, params):
 
     elif mode == tf.estimator.ModeKeys.PREDICT:
 
-        # to generate random jokes, decoder_initial_state shape same as encoder_state shape
-        decoder_initial_state = encoder_output
+        beam_width = params.get('beam_width', 4)
 
-        # prediction_initial_state = tf.contrib.seq2seq.tile_batch(decoder_initial_state, 4)
+        # to generate random jokes, decoder_initial_state shape same as encoder_state shape
+        decoder_initial_state = tf.contrib.seq2seq.tile_batch(
+            encoder_output, multiplier=beam_width)
+
         prediction_initial_state = decoder_initial_state
-        tf.logging.info(decoder_embeddings)
-        tf.logging.info(tf.fill([batch_size], tf.to_int32(decoder_vocab['<START>'])))
-        tf.logging.info(tf.to_int32(decoder_vocab['<END>']))
-        tf.logging.info(prediction_initial_state)
-        prediction_decoder = tf.contrib.seq2seq.BeamSearchDecoder(
-            cell=decoder_cell,
-            embedding=decoder_embeddings,
-            start_tokens=tf.fill([batch_size], tf.to_int32(decoder_vocab['<START>'])),
-            end_token=tf.to_int32(decoder_vocab['<END>']),
-            initial_state=prediction_initial_state,
-            beam_width=4,
+
+        tf.logging.info(decoder_cell)
+
+        helper = tf.contrib.seq2seq.GreedyEmbeddingHelper(
+            decoder_embeddings,
+            tf.fill([batch_size], tf.to_int32(decoder_vocab['<START>'])),
+            tf.to_int32(decoder_vocab['<END>'])
+        )
+
+        decoder = tf.contrib.seq2seq.BasicDecoder(
+            decoder_cell, helper, encoder_state,
             output_layer=decoder_projection_layer
         )
-        prediction_output, _, _ = tf.contrib.seq2seq.dynamic_decode(
-            prediction_decoder,
-            maximum_iterations=params['decoder_max_len']
-        )
+
+        prediction_output = tf.contrib.seq2seq.dynamic_decode(
+            decoder, maximum_iterations=400)
+
+
+        # prediction_decoder = tf.contrib.seq2seq.BeamSearchDecoder(
+        #     cell=decoder_cell,
+        #     embedding=decoder_embeddings,
+        #     start_tokens=tf.fill([batch_size], tf.to_int32(decoder_vocab['<START>'])),
+        #     # start_tokens=tf.to_int32(decoder_vocab['<START>']),
+        #     end_token=tf.to_int32(decoder_vocab['<END>']),
+        #     initial_state=prediction_initial_state,
+        #     beam_width=beam_width,
+        #     output_layer=decoder_projection_layer
+        # )
+        # prediction_output, _, _ = tf.contrib.seq2seq.dynamic_decode(
+        #     prediction_decoder,
+        #     maximum_iterations=params['decoder_max_len']
+        # )
 
         reverse_decoder_vocab_tensor = tf.constant(
             [params['reverse_decoder_vocab'][i] for i in range(params['decoder_vocab_size'])]
         )
-        reverse_decoder_lookup = tf.contrib.lookup.index_to_string_from_tensor(
+        reverse_decoder_lookup = tf.contrib.lookup.index_to_string_table_from_tensor(
             reverse_decoder_vocab_tensor,
             default_value="<SOME MISTAKE>"
         )
         # predicted_strings = reverse_decoder_lookup(tf.to_int64(prediction_output.sample_id))
-        predicted_strings = reverse_decoder_lookup(tf.to_int64(prediction_output[:,:,0]))
+        # predicted_strings = reverse_decoder_lookup(tf.to_int64(prediction_output[:,:,0]))
         predictions = {
-            'ids': prediction_output.sample_id,
-            'text': predicted_strings
+            'ids': prediction_output[0].sample_id,
+            # 'text': predicted_strings
         }
         return tf.estimator.EstimatorSpec(mode, predictions=predictions)
