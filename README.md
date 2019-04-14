@@ -2,27 +2,33 @@
 По мотивам <a href="https://amoudgl.github.io/blog/funnybot/">поста</a> запилить бота, который шутит шутейки.
 
 ## План проекта
-### 1. Сбор данных (Alexandr Yu., Vasily Karmazin)
+### 1. Сбор данных (Alexandr Yu., Vasily Karmazin) 
+##### дедлайн до 8 апреля
 Сбор шутейк из <a href="https://vk.com">vk.com</a>, <a href="https://bash.im">bash.im</a>, <a href="https://2ch.hk">2ch.hk</a> и других подобных ресурсах
 
-### 2. Препроцессинг данных (Alexandr Yu.)
+### 2. Препроцессинг данных (Alexandr Yu.) 
+##### дедлайн до 8 апреля
  - Обработка полученных данны
  - Удаление мусора
  - ~~Нормализация текста~~ - если кто-то будет делать word based seq2seq, то он сделает нормализацию и токенизацию как он считает нужным
 
-### 3. Создание архитектуры проекта (Alexandr Yu., Vasily Karmazin, Vlad Semak)
+### 3. Создание архитектуры проекта (Alexandr Yu., Vasily Karmazin, Vlad Semak) 
+##### дедлайн до 21 апреля
 Изучение дополнительного материала
  - Статьи (<a href="https://guillaumegenthial.github.io/sequence-to-sequence.html">Seq2Seq with Attention and Beam Search</a>)
  - Похожие проекты 
  - Научные работы
  
-### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu., Vlad Semak) (до 15 апреля)
+### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu., Vlad Semak) 
+##### дедлайн до 15 апреля
 Построение простой модели и оценка её качества
 
-### 5. Эксперимент 2. Attention (Aexandr Yu., Vasily Karmazin) (до 19 апреля)
+### 5. Эксперимент 2. Attention (Aexandr Yu., Vasily Karmazin) 
+##### дедлайн до 19 апреля
 Добавление attention-а к модели 
 
-### 6. Эксперимент 3. Language Model, Transformer (Alexandr Yu., Vasily Karmazin, Vlad Semak) (до 21 апреля)
+### 6. Эксперимент 3. Language Model, Transformer (Alexandr Yu., Vasily Karmazin, Vlad Semak) 
+##### дедлайн до 21 апреля
 Изучение сложных архитектурных моделей, попытки использовать их в проекте 
 
 ### -1. (опционально) Телеграмм бот (Vasily Karmazin)
