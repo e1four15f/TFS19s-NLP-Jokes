@@ -16,13 +16,13 @@
  - Похожие проекты 
  - Научные работы
  
-### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu., Vlad Semak)
+### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu., Vlad Semak) (до 15 апреля)
 Построение простой модели и оценка её качества
 
-### 5. Эксперимент 2. Attention (Aexandr Yu., Vasily Karmazin)
+### 5. Эксперимент 2. Attention (Aexandr Yu., Vasily Karmazin) (до 19 апреля)
 Добавление attention-а к модели 
 
-### 6. Эксперимент 3. Language Model, Transformer (Alexandr Yu., Vasily Karmazin, Vlad Semak)
+### 6. Эксперимент 3. Language Model, Transformer (Alexandr Yu., Vasily Karmazin, Vlad Semak) (до 21 апреля)
 Изучение сложных архитектурных моделей, попытки использовать их в проекте 
 
 ### -1. (опционально) Телеграмм бот (Vasily Karmazin)
