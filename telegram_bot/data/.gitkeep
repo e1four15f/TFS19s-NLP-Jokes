@@ -5,6 +5,4 @@
 /data
 .idea
 
-**/.vscode
-telegram_bot/data/*
-!telegram_bot/data/.gitkeep
+.vscode/*
