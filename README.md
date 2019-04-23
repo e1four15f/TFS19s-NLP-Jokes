@@ -12,14 +12,14 @@
  - Удаление мусора
  - ~~Нормализация текста~~ - если кто-то будет делать word based seq2seq, то он сделает нормализацию и токенизацию как он считает нужным
 
-### 3. Создание архитектуры проекта (Alexandr Yu., Vasily Karmazin, Vlad Semak) 
+### 3. Создание архитектуры проекта (Alexandr Yu., Vasily Karmazin) 
 ##### дедлайн до 21 апреля
 Изучение дополнительного материала
  - Статьи (<a href="https://guillaumegenthial.github.io/sequence-to-sequence.html">Seq2Seq with Attention and Beam Search</a>)
  - Похожие проекты 
  - Научные работы
  
-### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu., Vlad Semak) 
+### 4. Эксперимент 1. LSTM/RNN, Seq2Seq (Alexandr Yu.) 
 ##### дедлайн до 15 апреля
 Построение простой модели и оценка её качества
 
@@ -27,7 +27,7 @@
 ##### дедлайн до 19 апреля
 Добавление attention-а к модели 
 
-### 6. Эксперимент 3. Language Model, ULMFiT (Alexandr Yu., Vasily Karmazin, Vlad Semak) 
+### 6. Эксперимент 3. Language Model, ULMFiT (Alexandr Yu., Vasily Karmazin) 
 ##### дедлайн до 21 апреля
 Изучение сложных архитектурных моделей, попытки использовать transfer learning в проекте 
 
