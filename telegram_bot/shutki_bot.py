@@ -42,6 +42,7 @@ class ShutkiBot:
 /joke (/j) - генерация шуток (ULMFiT AWD-LSTM)
 /joke_t (/jt) {temperature} - генерация шуток с температурой [0.1, 1.0]
 /joke_w (/jw) {words} - генерация шутки по начальным словам
+/joke_wt (/jwt) {words} {temperature} - генерация шутки по начальным словам с температурой [0.1, 1.0]
 /joke_exp1 (/je1) - генерация шуток моделью из первого эксперимента (LSTM)
 /joke_exp2 (/je2) - генерация шуток моделью из второго эксперимента (textgenrnn)
 /joke_exp2_t (/je2t) {temperature} - генерация шуток с температурой [0.1, 1.0] (textgenrnn)
@@ -51,7 +52,7 @@ class ShutkiBot:
 Примеры:
 /joke_t 0.8
 /joke_w Решил я сделать бота шутника, а он
-/je2t 0.4
+/jwt Новинка в магазине 0.4
             """
             self._bot.send_message(chat_id=update.message.chat_id, text=text)
 
@@ -75,6 +76,19 @@ class ShutkiBot:
             words = ' '.join(args)
             text = f'Начальные слова: {words}\n\n'
             text += self._ulmfit_model.generate(text=words)
+            self._bot.send_message(chat_id=update.message.chat_id, text=text)
+
+        def joke_wt(bot, update, args):
+            try:
+                temperature = float(args[-1]) if args and 0.1 <= float(args[-1]) <= 1.0 else 1.0
+                words = ' '.join(args[:-1])
+            except ValueError:
+                temperature = 1.0
+                words = ' '.join(args)
+                
+            text = f'Начальные слова: {words}\n'
+            text += f'Температура: {temperature}\n\n'
+            text += self._ulmfit_model.generate(text=words, temperature=temperature)
             self._bot.send_message(chat_id=update.message.chat_id, text=text)
             
         def joke_exp1(bot, update):
@@ -114,6 +128,7 @@ class ShutkiBot:
                           CommandHandler(['joke', 'j'], joke),
                           CommandHandler(['joke_t', 'jt'], joke_t, pass_args=True),
                           CommandHandler(['joke_w', 'jw'], joke_w, pass_args=True),
+                          CommandHandler(['joke_wt', 'jwt'], joke_wt, pass_args=True),
                           CommandHandler(['joke_exp1', 'je1'], joke_exp1),
                           CommandHandler(['joke_exp2', 'je2'], joke_exp2),
                           CommandHandler(['joke_exp2_t', 'je2t'], joke_exp2_t, pass_args=True),
